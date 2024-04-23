@@ -10,6 +10,7 @@
 
 ### 3.1.1 前端 Frontend
 Node.js  
+vite
 Vue.js  
 Vuetify(Css框架)
 
