@@ -12,14 +12,11 @@
 Node.js  
 vite
 Vue.js  
-Vuetify(Css框架)
+Vuetify(CSS framework)
 
 ### 3.1.2 後端 Backend
 Node.js  
 Epress.js  
 
-架構：
-
-
 ### 3.1.3 資料庫 Database
-MongoDB
+MongoDB  
