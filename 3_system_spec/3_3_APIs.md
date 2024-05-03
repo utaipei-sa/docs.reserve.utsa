@@ -5,38 +5,6 @@
 - [3.3 應用程式介面 APIs](#33-應用程式介面-apis)
   - [目錄 Table of Contents](#目錄-table-of-contents)
 
-### nothing, just template (temporary, deletable)
-- parameters  
-  - `reservation_id` (path)  
-    預約紀錄 ID  
-    string, required  
-      
-    format: Object ID  
-    example: abc
-  - request body (body)  
-    更新的預約紀錄  
-    required  
-    content: application/json  
-    schema:  
-    - ha
-
-    example:  
-    ```json
-    {
-
-    }
-    ```
-- response
-  - status: 200 OK  
-    content: application/json  
-    ```json
-    {
-      "title": "UTSA reservation system", 
-      "hello": "world"
-    }
-    ```
-
-
 ### GET `/` : 指引訊息
 - response
   - status: 200 OK  
@@ -47,9 +15,6 @@
       "hello": "world"
     }
     ```
-
-### GET `/robots.txt`: 機器人爬蟲訊息
-(Frontend's business)
 
 ### GET `/items` : 取得物品搜尋清單
 - parameters  
@@ -125,6 +90,19 @@
     }
     ```
 
+  - status: 404 Not found
+    content: application/json
+    - `error_code`: string, 錯誤代碼
+    - `message`: string, 提示訊息
+
+    example:
+    ```json
+    {
+      "error_code": "R_ID_NOT_FOUND", 
+      "message": "Item ID not found"
+    }
+    ```
+
 ### GET `/spaces` : 取得場地搜尋清單
 - parameters  
   - `space_id` (query)  
@@ -196,6 +174,19 @@
         "open": 1,
         "exception_time": []
       }
+    }
+    ```
+
+  - status: 404 Not found
+    content: application/json
+    - `error_code`: string, 錯誤代碼
+    - `message`: string, 提示訊息
+
+    example:
+    ```json
+    {
+      "error_code": "R_ID_NOT_FOUND", 
+      "message": "Space ID not found"
     }
     ```
 
@@ -291,18 +282,24 @@
     content: application/json  
     ```json
     {
-      "code": -200, 
-      "message": ""
+      "code": "R_SUCCESS", 
+      "message": "Success!"
     }
     ```
   - status: 404 Not Found  
     content: application/json
+    - `error_code`: string, 錯誤代碼
+    - `message`: string, 提示訊息
+
+    example:
     ```json
-
+    {
+      "error_code": "R_ID_NOT_FOUND",
+      "message": "Space ID not found"
+    }
     ```
-  - status: 
 
-### GET `/reserve/:reservation_id` : 取得預約資料
+### GET `/reserve/{reservation_id}` : 取得預約資料
 - parameters  
   - `reservation_id` (path)  
     預約紀錄 ID  
@@ -317,6 +314,7 @@
       format: ISO date-time string
     - `server_datetime`: string, 伺服器端資料建立時間  
       format: ISO date-time string
+    - `verified`: integer, 是否完成驗證，1:是 0:否
     - `name`: string, 登記人姓名  
     - `department_grade`: string, 系級  
     - `organization`: string, 借用單位(社團/單位等)  
@@ -372,14 +370,18 @@
     ```
   - status: 404 Not found  
     content: application/json  
+    - `error_code`: string, 錯誤代碼
+    - `message`: string, 提示訊息
+
+    example:
     ```json
     {
-      "errcode": "R_ID_NOT_FOUND", 
+      "error_code": "R_ID_NOT_FOUND", 
       "message": "Reservation ID not found"
     }
     ```
 
-### PUT `/reserve/:reservation_id` : 更改預約資料
+### PUT `/reserve/{reservation_id}` : 更改預約資料
 - parameters  
   - `reservation_id` (path)  
     預約紀錄 ID  
@@ -391,17 +393,12 @@
     required  
     content: application/json  
     schema:  
-    - ha
-
-    example:  
-    ```json
-    {
-
-    }
-    ```
+    - (Almost the same as GET /reserve)
 - response
   - status: 200 OK  
     content: application/json  
+
+    example: 
     ```json
     {
       "title": "UTSA reservation system", 
@@ -409,7 +406,20 @@
     }
     ```
 
-### DELETE `/reserve/:reservation_id` : 刪除預約資料
+  - status: 404 Not found
+    content: application/json
+    - `error_code`: string, 錯誤代碼
+    - `message`: string, 提示訊息
+
+    example:
+    ```json
+    {
+      "error_code": "R_ID_NOT_FOUND", 
+      "message": "Reservation ID not found"
+    }
+    ```
+
+### DELETE `/reserve/{reservation_id}` : 刪除預約資料
 - parameters  
   - `reservation_id` (path)  
     預約紀錄 ID  
@@ -423,30 +433,175 @@
     If the server found the reservation data and delete it, the following content will be returned:
     ```json
     {
-
+      "code": "R_SUCCESS",
+      "message": "Delete success!"
     }
     ```
 
     If the reservation data not exist, the following content will be returned:
     ```json
     {
-
-    }
-    ```
-
-  - status: 000 something  
-    content: application/json
-
-    If the reservation data can't be deleted or some error was occurred, the following content will be returned:
-    ```json
-    {
-      
+      "code": "R_ID_NOT_FOUND",
+      "message": "Reservation ID not found"
     }
     ```
 
 ### GET `/item_available_time` : 查詢特定時段物品可預約數量
-- parameters:
-  - abc
-- abc
+- parameters  
+  - `intervals` (query)  
+    是否切分成各時段進行回傳  
+    string, optional(false by dafault)  
+    format: true/false
+    example: false
+  - `item_id` (query)  
+    物品 _id  
+    string, required  
+    format: Object ID `/^[a-fA-F0-9]{24}$/`  
+    example: "652038af1b2271aa002c0a09"
+- response
+  - status: 200 OK  
+    content: application/json  
+
+    if intervals is `false`:  
+    - `available_quantity`: integer, 可預約數量 
+
+    example:
+    ```json
+    {
+      "available_quantity": 5
+    }
+    ```
+
+    if intervals is `true`:  
+    - `intervals`: Array\<Object\>, 各時段可否預約資料
+      - `start_datetime`: string, 時段開始時間  
+        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`
+      - `end_datetime`: string, 時段結束時間  
+        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`
+      - `available_quantity`: integer, 可預約數量
+
+    example:
+    ```json
+    {
+      "intervals": [
+        {
+          "start_datetime": "2024-05-01T13:00",
+          "end_datetime": "2024-05-02T12:00",
+          "available_quantity": 20
+        },
+        {
+          "start_datetime": "2024-05-02T13:00",
+          "end_datetime": "2024-05-03T12:00",
+          "available_quantity": 5
+        },
+      ]
+    }
+    ```
+  - status: 404 Not found
+    content: application/json
+    - `error_code`: string, 錯誤代碼
+    - `message`: string, 提示訊息
+
+    example:
+    ```json
+    {
+      "error_code": "R_ID_NOT_FOUND", 
+      "message": "Item ID not found"
+    }
+    ```
 
 ### GET `/space_available_time` : 查詢特定時段場地是否可預約
+- parameters  
+  - `intervals` (query)  
+    是否切分成各時段進行回傳  
+    string, optional(false by dafault)  
+    format: true/false
+    example: false
+  - `space_id` (query)  
+    場地 _id  
+    string, required  
+    format: Object ID `/^[a-fA-F0-9]{24}$/`  
+    example: "652038af1b2271aa002c0a09"
+- response
+  - status: 200 OK  
+    content: application/json  
+
+    if intervals is `false`:  
+    - `available`: integer, 是否可預約, 1:可 0:不可 
+
+    example:
+    ```json
+    {
+      "available": 0
+    }
+    ```
+
+    if intervals is `true`:  
+    - `intervals`: Array\<Object\>, 各時段可否預約資料
+      - `start_datetime`: string, 時段開始時間  
+        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`
+      - `end_datetime`: string, 時段結束時間  
+        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`
+      - `available`: integer, 是否可預約, 1:可 0:不可
+
+    example:
+    ```json
+    {
+      "intervals": [
+        {
+          "start_datetime": "2024-05-02T13:00",
+          "end_datetime": "2024-05-02T17:00",
+          "available": 0
+        },
+        {
+          "start_datetime": "2024-05-02T18:00",
+          "end_datetime": "2024-05-02T22:00",
+          "available": 1
+        },
+      ]
+    }
+    ```
+  - status: 404 Not found
+    content: application/json
+    - `error_code`: string, 錯誤代碼
+    - `message`: string, 提示訊息
+
+    example:
+    ```json
+    {
+      "error_code": "R_ID_NOT_FOUND", 
+      "message": "Space ID not found"
+    }
+    ```
+
+### POST `/verify/{reservation_id}` : 進行預約驗證
+- parameters
+  - `reservation_id` (path)  
+    預約紀錄 _id  
+    string, required  
+    format: Object ID `/^[a-fA-F0-9]{24}$/`  
+    example: "652038af1b2271aa002c0a09"
+- response
+  - status: 200 OK  
+    content: application/json  
+    - `message`: string, 提示訊息
+
+    example:
+    ```json
+    {
+      "message": "success!"
+    }
+    ```
+
+  - status: 404 Not found
+    content: application/json
+    - `error_code`: string, 錯誤代碼
+    - `message`: string, 提示訊息
+
+    example:
+    ```json
+    {
+      "error_code": "R_ID_NOT_FOUND", 
+      "message": "Reservation ID not found"
+    }
+    ```
