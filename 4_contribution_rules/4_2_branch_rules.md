@@ -3,7 +3,7 @@
 Use Linear's "Copy git branch name" feature to name the branches.
 
 1. Click the "Copy git branch name" button
-![](/images/4_2_1.png)
+![](../images/4_2_1.png)
 
 2. Use the string copied to name your branch.
 
