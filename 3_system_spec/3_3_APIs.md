@@ -327,7 +327,7 @@
         format: Object ID `/^[a-fA-F0-9]{24}$/`  
       - `start_datetime`: string, 預約時段開始時間  
         format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-      - `end_datetime`: string, 預約時段結束時間
+      - `end_datetime`: string, 預約時段結束時間  
         format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
     - `item_reservations`: array\<Object\>, 場地預約資料  
       - `item_id`: string, 物品 _id  
@@ -458,6 +458,15 @@
     string, required  
     format: Object ID `/^[a-fA-F0-9]{24}$/`  
     example: "652038af1b2271aa002c0a09"
+  - `start_datetime` (query)  
+    查詢起始時間  
+    string, optional  
+    format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
+    example: "2024-04-29T13:00"  
+  - `end_datetime` (query) 查詢結束時間  
+    string, optional  
+    format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
+    example: "2024-04-29T17:00"  
 - response
   - status: 200 OK  
     content: application/json  
@@ -522,6 +531,15 @@
     string, required  
     format: Object ID `/^[a-fA-F0-9]{24}$/`  
     example: "652038af1b2271aa002c0a09"
+  - `start_datetime` (query)  
+    查詢起始時間  
+    string, optional  
+    format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
+    example: "2024-04-29T13:00"  
+  - `end_datetime` (query) 查詢結束時間  
+    string, optional  
+    format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
+    example: "2024-04-29T17:00"  
 - response
   - status: 200 OK  
     content: application/json  
