@@ -50,7 +50,7 @@ Database: utsa
 
 ### reservations
   - _id: ObjectId
-  - status: Int32, wait_for_verify/new/update
+  - status: Int32, wait_for_verify/new/modified
   - history: Array\<Object\>
     - submit_timestamp: Date
     - server_timestamp: Timestamp
