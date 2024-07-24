@@ -223,12 +223,12 @@
         example: "65f48bbc6f21a65d302a6149" 
       - `start_datetime`: 預約時段開始時間  
         string, required  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-        example: "2024-04-29T13:00"
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`   
+        example: "2024-04-29T13:00:00.000+0800"
       - `end_datetime`: 預約時段結束時間
         string, required  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-        example: "2024-04-29T17:00"
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
+        example: "2024-04-29T17:00:00.000+0800"
     - `item_reservations`: 場地預約資料  
       array\<Object\>, required ( `Union(space_reservations, item_reservations)` )
       - `item_id`: 物品 _id  
@@ -239,12 +239,12 @@
         string, optional (required if the admin set to required)
       - `start_datetime`: 預約時段開始時間  
         string, required  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-        example: "2024-04-29T13:00"
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
+        example: "2024-04-29T13:00:00.000+0800"
       - `end_datetime`: 預約時段結束時間
         string, required  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-        example: "2024-04-29T17:00"
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
+        example: "2024-04-29T17:00:00.000+0800"
       - `quantity`: 預約物品數量  
         integer, required  
         example: 15
@@ -261,16 +261,16 @@
       "space_reservations": [
         {
           "space_id": "65253db7053c98f0bd1593db",
-          "start_datetime": "2024-01-23T18:00",
-          "end_datetime": "2024-01-25T22:00"
+          "start_datetime": "2024-01-23T18:00:00.000+0800",
+          "end_datetime": "2024-01-25T22:00:00.000+0800"
         }
       ],
       "item_reservations": [
         {
           "item_id": "652038af1b2271aa002c0a09",
           "item_code": "ABC-123",
-          "start_datetime": "2024-01-23T18:00",
-          "end_datetime": "2024-01-25T22:00",
+          "start_datetime": "2024-01-23T18:00:00.000+0800",
+          "end_datetime": "2024-01-25T22:00:00.000+0800",
           "quantity": 15
         }
       ],
@@ -326,17 +326,17 @@
       - `space_id`: string, 場地 _id  
         format: Object ID `/^[a-fA-F0-9]{24}$/`  
       - `start_datetime`: string, 預約時段開始時間  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
       - `end_datetime`: string, 預約時段結束時間  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
     - `item_reservations`: array\<Object\>, 場地預約資料  
       - `item_id`: string, 物品 _id  
         format: Object ID `/^[a-fA-F0-9]{24}$/`  
       - `item_code`: string, 物品編號  
       - `start_datetime`: string, 預約時段開始時間  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
       - `end_datetime`: string, 預約時段結束時間
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
       - `quantity`: integer, 預約物品數量  
 
     example:
@@ -353,16 +353,16 @@
       "space_reservations": [
         {
           "space_id": "65253db7053c98f0bd1593db",
-          "start_datetime": "2024-01-23T18:00",
-          "end_datetime": "2024-01-25T22:00"
+          "start_datetime": "2024-01-23T18:00:00.000+0800",
+          "end_datetime": "2024-01-25T22:00:00.000+0800"
         }
       ],
       "item_reservations": [
         {
           "item_id": "652038af1b2271aa002c0a09",
           "item_code": "ABC-123",
-          "start_datetime": "2024-01-23T18:00",
-          "end_datetime": "2024-01-25T22:00",
+          "start_datetime": "2024-01-23T18:00:00.000+0800",
+          "end_datetime": "2024-01-25T22:00:00.000+0800",
           "quantity": 15
         }
       ]
@@ -393,7 +393,7 @@
     required  
     content: application/json  
     schema:  
-    - (Almost the same as GET /reserve)
+    - (Almost the same as POST /reserve)
 - response
   - status: 200 OK  
     content: application/json  
@@ -461,12 +461,12 @@
   - `start_datetime` (query)  
     查詢起始時間  
     string, optional  
-    format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-    example: "2024-04-29T13:00"  
+    format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
+    example: "2024-04-29T13:00:00.000+0800"  
   - `end_datetime` (query) 查詢結束時間  
     string, optional  
-    format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-    example: "2024-04-29T17:00"  
+    format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
+    example: "2024-04-29T17:00:00.000+0800"  
 - response
   - status: 200 OK  
     content: application/json  
@@ -484,9 +484,9 @@
     if intervals is `true`:  
     - `intervals`: Array\<Object\>, 各時段可否預約資料
       - `start_datetime`: string, 時段開始時間  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
       - `end_datetime`: string, 時段結束時間  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
       - `available_quantity`: integer, 可預約數量
 
     example:
@@ -494,13 +494,13 @@
     {
       "intervals": [
         {
-          "start_datetime": "2024-05-01T13:00",
-          "end_datetime": "2024-05-02T12:00",
+          "start_datetime": "2024-05-01T13:00:00.000+0800",
+          "end_datetime": "2024-05-02T12:00:00.000+0800",
           "available_quantity": 20
         },
         {
-          "start_datetime": "2024-05-02T13:00",
-          "end_datetime": "2024-05-03T12:00",
+          "start_datetime": "2024-05-02T13:00:00.000+0800",
+          "end_datetime": "2024-05-03T12:00:00.000+0800",
           "available_quantity": 5
         },
       ]
@@ -534,12 +534,12 @@
   - `start_datetime` (query)  
     查詢起始時間  
     string, optional  
-    format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-    example: "2024-04-29T13:00"  
+    format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
+    example: "2024-04-29T13:00:00.000+0800"  
   - `end_datetime` (query) 查詢結束時間  
     string, optional  
-    format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`  
-    example: "2024-04-29T17:00"  
+    format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
+    example: "2024-04-29T17:00:00.000+0800"  
 - response
   - status: 200 OK  
     content: application/json  
@@ -557,9 +557,9 @@
     if intervals is `true`:  
     - `intervals`: Array\<Object\>, 各時段可否預約資料
       - `start_datetime`: string, 時段開始時間  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
       - `end_datetime`: string, 時段結束時間  
-        format: `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/`
+        format: ISO date-time string `/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):00(\.0*)?\+08:?00$/`  
       - `available`: integer, 是否可預約, 1:可 0:不可
 
     example:
@@ -567,13 +567,13 @@
     {
       "intervals": [
         {
-          "start_datetime": "2024-05-02T13:00",
-          "end_datetime": "2024-05-02T17:00",
+          "start_datetime": "2024-05-02T13:00:00.000+0800",
+          "end_datetime": "2024-05-02T17:00:00.000+0800",
           "available": 0
         },
         {
-          "start_datetime": "2024-05-02T18:00",
-          "end_datetime": "2024-05-02T22:00",
+          "start_datetime": "2024-05-02T18:00:00.000+0800",
+          "end_datetime": "2024-05-02T22:00:00.000+0800",
           "available": 1
         },
       ]
@@ -592,7 +592,7 @@
     }
     ```
 
-### POST `/verify/{reservation_id}` : 進行預約驗證
+### PATCH `/verify/{reservation_id}` : 進行預約驗證
 - parameters
   - `reservation_id` (path)  
     預約紀錄 _id  
