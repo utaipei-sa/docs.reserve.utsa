@@ -108,3 +108,9 @@ Database: utsa
 - item_code_required: Int32, 物品編號必填, 1: Enable; 0: Disable
 - verify_before_reserve: Int32, 預約表單送出前需通過驗證, 1: Enable; 0: Disable
 - anonymous_user_reserve: Int32, 開放匿名使用者預約, 1: Enable; 0: Disable
+
+### banner
+- content: String, 首頁置頂公告
+
+### rules
+- content: String, 借用規則, 支援部分 Markdown 語法（連結、文字格式等）
