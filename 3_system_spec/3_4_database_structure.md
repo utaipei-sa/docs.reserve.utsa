@@ -65,12 +65,12 @@ Database: utsa
   - notes: String, 備註
   - verified: Int32, 是否已預約, 1: 是; 0: 否
   - item_reservations: Array\<Object\>, 物品預約時段資料
-    - item_id: ObjectId, 物品 _id
+    - item_id: String, 物品 _id
     - start_datetime: Date, 預約時段開始時間
     - end_datetime: Date, 預約時段結束時間
     - quantity: Int32, 時段借用數量
   - space_reservations: Array\<Object\>, 場地預約時段資料
-    - space_id: ObjectId, 場地 _id
+    - space_id: String, 場地 _id
     - start_datetime: Date, 預約時段開始時間
     - end_datetime: Date, 預約時段結束時間
 
@@ -80,15 +80,15 @@ Database: utsa
 - end_datetime: Date, 時段結束時間
 - item_id: ObjectId, 物品 _id
 - reserved_quantity: Int32, 時段被預約數量
-- reservations: Array\<ObjectId\>, 預約紀錄 _id
+- reservations: Array\<String\>, 預約紀錄 _id
 
 ### space_reserved_time
 - _id: ObjectId
 - start_datetime: Date, 時段開始時間
 - end_datetime: Date, 時段結束時間
-- space_id: ObjectId, Int32, 場地 _id
+- space_id: String, Int32, 場地 _id
 - reserved: 此時段是否被預約
-- reservations: Array\<ObjectId\>, 預約紀錄 _id
+- reservations: Array\<String\>, 預約紀錄 _id
 
 ### users
 - _id: ObjectId
@@ -96,7 +96,7 @@ Database: utsa
 - email: String, 電子郵件
 - email_verified: Int32, 電子郵件是否完成驗證, 1: True; 2: False
 - organizations: Array\<String\>, 所加入的組織(社團、科系、行政部門等)
-- reservations: Array\<ObjectId\>, 預約紀錄 _id
+- reservations: Array\<String\>, 預約紀錄 _id
 - passkeys: Array\<Object\>, 通行密鑰
     - name: String, 名稱
     - passkey: String, 通行密鑰公鑰
