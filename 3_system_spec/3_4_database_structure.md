@@ -63,7 +63,7 @@ Database: utsa
   - verify_code: String, 匿名使用者預約驗證碼
   - usage: String, 用途
   - notes: String, 備註
-  - verified: Int32, 是否已預約, 1: 是; 0: 否
+  - verified: Int32, 是否已驗證, 1: 是; 0: 否
   - item_reservations: Array\<Object\>, 物品預約時段資料
     - item_id: String, 物品 _id
     - start_datetime: Date, 預約時段開始時間
